@@ -6,15 +6,26 @@
 //
 
 import UIKit
+import React
 
 class HomeController: BaseViewController {
+
+
     private var homePresenter: DataSourcePresenter<Product>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         homePresenter = DataSourcePresenter(dataControllerDelegate: self,
                                             cartUpdateDelegate: self)
-        configureTableView()
+
+        let jsCodeLocation = URL(string: "http://localhost:8081/index.bundle?platform=ios")!
+        let rootView = RCTRootView(
+            bundleURL: jsCodeLocation,
+            moduleName: "RNHome",
+            initialProperties: nil,
+            launchOptions: nil
+        )
+        self.view = rootView
 
     }
 
@@ -44,7 +55,7 @@ extension HomeController: CartUpdateDelegate {
 
 extension HomeController: DataSourceDelegate {
     func dataRetrieved<T>(data: [T]) {
-        refreshViewForNewDataState()
+        // Alert React Native and render
     }
     
     func didStartFetchingData() {

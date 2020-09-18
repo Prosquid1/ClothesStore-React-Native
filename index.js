@@ -13,7 +13,6 @@ class RNHome extends React.Component {
         <Text style={styles.highScoresTitle}>
           Test Data for RN Home
         </Text>
-        <Text style={styles.scores}>{contents}</Text>
       </View>
     );
   }
