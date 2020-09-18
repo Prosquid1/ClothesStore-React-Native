@@ -6,14 +6,25 @@
 //
 
 import UIKit
+import React
 
 class AnimatedTabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let vc1: UIViewController = HomeController()
+        let jsCodeLocation = URL(string: "http://localhost:8081/index.bundle?platform=ios")!
+
+        let rootView = RCTRootView(
+            bundleURL: jsCodeLocation,
+            moduleName: "RNHome",
+            initialProperties: nil,
+            launchOptions: nil
+        )
+        let vc1 = UIViewController()
         vc1.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "house.fill"), tag: 0)
+        vc1.view = rootView
+
 
         let vc2: UIViewController = WishListController()
         vc2.tabBarItem = UITabBarItem(title: "My Wishlist", image: UIImage(systemName: "star.fill"), tag: 1)
