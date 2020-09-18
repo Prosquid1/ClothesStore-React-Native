@@ -6,8 +6,7 @@ import {
   View
 } from 'react-native';
 
-class RNHome extends React.Component {
-  render() {
+const RNHome = () => {
     return (
       <View style={styles.container}>
         <Text style={styles.highScoresTitle}>
@@ -15,7 +14,6 @@ class RNHome extends React.Component {
         </Text>
       </View>
     );
-  }
 }
 
 const styles = StyleSheet.create({
