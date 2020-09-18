@@ -24,8 +24,7 @@ class HomeBridge: RCTEventEmitter {
     public func fetchData(){
         DispatchQueue.main.async {
             guard let homeController = UIApplication.shared.delegate?.window??.rootViewController?.topMostViewController() as? HomeController else {
-                fatalError("Can't happen")
-                return
+                fatalError("Can't happen, can only be called from HomeController")
             }
             homeController.fetchData()
         }
