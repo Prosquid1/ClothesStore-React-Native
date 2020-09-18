@@ -1,0 +1,12 @@
+{
+  "name": "ClothesStore-React-Native",
+  "displayName": "ClothesStore-React-Native",
+  "expo": {
+    "name": "ClothesStore-React-Native",
+    "slug": "ClothesStore-React-Native",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
