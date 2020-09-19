@@ -22,7 +22,7 @@ import {
 
 const RNHome = () => {
 
-    const demoColors = ["#D65650", "#D65650", "#3530D1", "#D65650"]
+    const demoColors = ["#D65650", "#D65650", "#50369D", "#D65650"]
     const [products, setProducts] = useState([])
     const [wishListIds, setWishListIds] = useState([])
     const [refreshing, setRefreshing] = useState(false)
@@ -86,7 +86,7 @@ const RNHome = () => {
                         <Image style={styles.starButton} source={isItemInWishList(product.id) ? starSelectedIcon : starDeselectedIcon} />
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => onAddToCartPressed(product)}>
-                        <Image style={styles.cartButton} source={cartIcon} />
+                        <Image style={[styles.cartButton, {opacity: product.stock == 0 ? 0.34 : 1}]} source={cartIcon} />
                     </TouchableOpacity>
                 </View>
             </View>)
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
         fontWeight: "300",
         color: 'black',
         flexShrink: 1,
-        fontSize: 15.0
+        fontSize: 14.6
     },
     productCategory: {
         color: 'gray',
@@ -152,13 +152,13 @@ const styles = StyleSheet.create({
         flexDirection: 'column'
     },
     starButton: {
-        height: 16,
-        width: 16
+        height: 15,
+        width: 15
     },
     cartButton: {
-        marginTop: 10,
-        height: 16,
-        width: 16
+        marginTop: 12,
+        height: 18,
+        width: 18
     },
     buttonsContainer: {
         flexDirection: 'column',
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
         height: 72,
         flexDirection: 'row',
         paddingLeft: 10,
-        paddingEnd: 22,
+        paddingEnd: 20.8,
         alignItems: 'center',
         borderWidth: 0.19,
         borderColor: '#DDD',
