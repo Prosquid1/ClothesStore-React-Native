@@ -1,13 +1,14 @@
 import React, {
     useCallback,
     useState,
-    useEffect
+    useEffect, useMemo
 } from 'react';
 
-import { NativeEventEmitter, FlatList,Image, RefreshControl } from 'react-native';
+import { NativeEventEmitter, FlatList, Image, RefreshControl } from 'react-native';
 import HomeBridge from './bridges';
 
-const starIcon = require('./assets/star_icon.png');
+const starSelectedIcon = require('./assets/star_selected_icon.png');
+const starDeselectedIcon = require('./assets/star_deselected_icon.png');
 const cartIcon = require('./ios/ClothesStore/App/Assets.xcassets/cart_icon.imageset/cart_icon.png');
 
 import {
@@ -23,6 +24,7 @@ const RNHome = () => {
 
     const demoColors = ["#D65650", "#D65650", "#3530D1", "#D65650"]
     const [products, setProducts] = useState([])
+    const [wishListIds, setWishListIds] = useState([])
     const [refreshing, setRefreshing] = useState(false)
     const eventEmitter = new NativeEventEmitter(HomeBridge);
 
@@ -38,6 +40,9 @@ const RNHome = () => {
         HomeBridge
     ]);
 
+    const onAddToCartPressed = useCallback((product) => HomeBridge.addToCart(product), [
+        HomeBridge
+    ]);
 
     useEffect(() => {
         eventEmitter.addListener('onSuccess', newProducts => {
@@ -49,9 +54,15 @@ const RNHome = () => {
             Alert.alert("Error", errorMessage)
         });
 
+        eventEmitter.addListener('onSetWishListIds', ids => {
+            setWishListIds(ids)
+        });
+
         setRefreshing(true)
         fetchData()
     }, []);
+
+    const isItemInWishList = useCallback((id) => wishListIds.indexOf(id) > -1, [wishListIds]);
 
     const renderProduct = useCallback((product, index) => {
         return (
@@ -67,8 +78,8 @@ const RNHome = () => {
                     </View>
                 </View>
                 <View style={styles.buttonsContainer}>
-                    <TouchableOpacity onPress={() => onRemoveFromWishListPressed(product)}>
-                        <Image style={styles.starButton} source={starIcon} />
+                    <TouchableOpacity onPress={() => isItemInWishList(product.id) ? onRemoveFromWishListPressed(product) : onAddToWishListPressed(product)}>
+                        <Image style={styles.starButton} source={isItemInWishList(product.id) ? starSelectedIcon : starDeselectedIcon} />
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => onAddToWishListPressed(product)}>
                         <Image style={styles.cartButton} source={cartIcon} />

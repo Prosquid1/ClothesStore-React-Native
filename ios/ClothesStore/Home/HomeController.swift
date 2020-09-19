@@ -48,12 +48,15 @@ class HomeController: BaseViewController {
             reactNativeEmitter.onErrorOccured(reason: "Unable to decode data!")
             return
         }
+
+        reactNativeEmitter.updateWishList(ids: homePresenter.wishlistManager.getWishListIds())
         reactNativeEmitter.onDataRetrieved(data: products)
     }
 
     func addToWishList(productDict: [String: Any]) {
         if let deserializedProduct = Product.fromDictionary(dict: productDict) {
             homePresenter.addToWishList(product: deserializedProduct)
+            reactNativeEmitter.updateWishList(ids: homePresenter.wishlistManager.getWishListIds())
         } else {
             reactNativeEmitter.onErrorOccured(reason: "Unable to add product (Err -40)!")
         }
@@ -62,6 +65,7 @@ class HomeController: BaseViewController {
     func removeFromWishList(productDict: [String: Any]) {
         if let deserializedProduct = Product.fromDictionary(dict: productDict) {
             homePresenter.removeFromWishList(product: deserializedProduct)
+            reactNativeEmitter.updateWishList(ids: homePresenter.wishlistManager.getWishListIds())
         } else {
             reactNativeEmitter.onErrorOccured(reason: "Unable to remove product (Err -41)!")
         }
@@ -70,20 +74,18 @@ class HomeController: BaseViewController {
 
 extension HomeController: CartUpdateDelegate {
     func onCartUpdateSuccess(message: String) {
-        showTopSuccessNote(message)
-        fetchData()
+        //Will now be handled by Bridge
     }
 
     func onCartUpdateFailed(reason: String) {
-        showTopErrorNote(reason)
+        //Will now be handled by Bridge
     }
 }
 
 
 extension HomeController: DataSourceDelegate {
     func dataRetrieved<T>(data: [T]) {
-        // Alert React Native and render
-        reactNativeEmitter.onDataRetrieved(data: []) //Will pass data later)
+        //Will now be handled by Bridge
     }
     
     func didStartFetchingData() {
@@ -91,12 +93,10 @@ extension HomeController: DataSourceDelegate {
     }
     
     func dataIsEmpty() {
-        refreshViewForNewDataState()
-        reactNativeEmitter.onErrorOccured(reason: "No items available!")
+        //Will now be handled by Bridge
     }
     
     func dataFetchingFailed(errorMessage: String) {
-        _refreshControl.endRefreshing()
-        reactNativeEmitter.onErrorOccured(reason: errorMessage)
+        //Will now be handled by Bridge
     }
 }
