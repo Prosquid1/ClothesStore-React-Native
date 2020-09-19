@@ -11,9 +11,9 @@ class HomeBridge: RCTEventEmitter {
 
     private var onCompleteCallback: RCTResponseSenderBlock?
 
-    private lazy var homeController: HomeController = {
+    private lazy var homeController: HomeController? = {
            guard let homeController = UIApplication.shared.delegate?.window??.rootViewController?.topMostViewController() as? HomeController else {
-               fatalError("Can't happen, all functions here can only be called from HomeController")
+                return nil
            }
            return homeController
        }()
@@ -30,21 +30,21 @@ class HomeBridge: RCTEventEmitter {
     @objc(fetchData)
     public func fetchData(){
         DispatchQueue.main.async { [weak self] in
-            self?.homeController.fetchData()
+            self?.homeController?.fetchData()
         }
     }
 
     @objc(addToWishList:)
     public func addToWishList(productDict: [String: Any]){
         DispatchQueue.main.async { [weak self] in
-            self?.homeController.addToWishList(productDict: productDict)
+            self?.homeController?.addToWishList(productDict: productDict)
         }
     }
 
     @objc(removeFromWishList:)
     public func removeFromWishList(productDict: [String: Any]){
         DispatchQueue.main.async { [weak self] in
-            self?.homeController.removeFromWishList(productDict: productDict)
+            self?.homeController?.removeFromWishList(productDict: productDict)
         }
     }
 

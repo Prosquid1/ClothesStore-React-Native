@@ -54,18 +54,15 @@ const RNHome = () => {
         <View style={styles.line}>
             <View style={styles.image}/>
             <View style={styles.textContainer}>
-                <Text style={styles.productName}>{item.name}{item.name}{item.name}{item.name}{item.name}{item.name}{item.name}</Text>
-                <Text style={styles.productName}>{item.category}{item.name}{item.name}{item.name}{item.name}{item.name}{item.name}</Text> 
-                
-                {/* {item.name}{item.name}{item.name}{item.name}{item.name}{item.name} */}
-
-                <View style={styles.priceContainer}><Text style={styles.productName}>{item.price}</Text>
-                {item.oldPrice && (<Text style={styles.oldPrice}>{`(${item.oldPrice})`}</Text>)}
+                <Text style={styles.productName}>{item.name}</Text>
+                <Text style={styles.productCategory}>{item.category}</Text> 
+                <View style={styles.priceContainer}><Text style={styles.productPrice}>{item.price}</Text>
+                {item.oldPrice && (<Text style={styles.productOldPrice}>{`(${item.oldPrice})`}</Text>)}
                 </View>
             </View>
             <View style={styles.buttonsContainer}>
-                <TouchableOpacity style={styles.favButton} onPress={ () => onAddToWishListPressed(item)}/>
                 <TouchableOpacity style={styles.starButton} onPress={ () => onRemoveFromWishListPressed(item)}/>
+                <TouchableOpacity style={styles.cartButton} onPress={ () => onAddToWishListPressed(item)}/>
             </View>
         </View>)
     });
@@ -89,49 +86,66 @@ const RNHome = () => {
 
 const styles = StyleSheet.create({
     image: {
-        height: 40,
-        width: 40,
-        borderRadius: 20,
+        height: 57.5,
+        width: 57.5,
+        borderRadius: 30,
         backgroundColor: 'red'
     },
     productName: {
-        textAlign: 'center'
+        fontWeight: "300",
+        color: 'black',
+        flexShrink: 1,
+        fontSize: 15.0
+    },
+    productCategory: {
+        color: 'gray',
+        flexShrink: 1,
+        fontSize: 14.0
+    },
+    productPrice: {
+        color: 'black',
+        flexShrink: 1,
+        fontSize: 13.0
+    },
+    productOldPrice: {
+        textDecorationLine: 'line-through',
+        textDecorationStyle: 'solid',
+        color: '#1F2124',
+        flexShrink: 1,
+        marginLeft: 5,
+        fontSize: 13.0
     },
     priceContainer: {
         flexDirection: 'row'
     },
-    oldPrice: {
-        marginLeft: 5
-    },
     textContainer: {
         flexGrow: 1,
-        width: '60%',
-        backgroundColor: 'red',
-        marginHorizontal: 16,
-        flexGrow: 1,
+        marginVertical: 4,
+        marginHorizontal: 11.4,
         alignItems: 'flex-start',
         flexDirection: 'column'    
     },
     starButton: {
-        backgroundColor: 'blue',
-        height: 20,
-        width: 20   
-    },
-    favButton: {
         backgroundColor: 'gold',
+        height: 16,
+        width: 16   
+    },
+    cartButton: {
+        backgroundColor: 'brown',
+        marginTop: 10,
         height: 20,
         width: 20   
     },
     buttonsContainer: {
-        width: 40,
         flexDirection: 'column',
-        alignSelf: 'flex-end'
+        alignItems: 'center'
 
     },
     line: {
-        height: 60,
+        height: 72,
         flexDirection: 'row',
-        paddingHorizontal: 16,
+        paddingLeft: 10,
+        paddingEnd: 20,
         alignItems: 'center',
         borderWidth: 0.2,
         borderColor: 'grey',
