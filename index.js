@@ -1,10 +1,9 @@
 import React, {
     useCallback,
     useState,
-    useEffect, useMemo
+    useEffect,
 } from 'react';
 
-import { NativeEventEmitter, FlatList, Image, RefreshControl } from 'react-native';
 import HomeBridge from './bridges';
 
 const starSelectedIcon = require('./assets/star_selected_icon.png');
@@ -16,6 +15,10 @@ import {
     StyleSheet,
     Text,
     Alert,
+    FlatList,
+    Image,
+    RefreshControl,
+    NativeEventEmitter,
     TouchableOpacity,
     View
 } from 'react-native';
