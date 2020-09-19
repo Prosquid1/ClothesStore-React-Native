@@ -11,6 +11,13 @@ class HomeBridge: RCTEventEmitter {
 
     private var onCompleteCallback: RCTResponseSenderBlock?
 
+    private lazy var homeController: HomeController? = {
+           guard let homeController = UIApplication.shared.delegate?.window??.rootViewController?.topMostViewController() as? HomeController else {
+                return nil
+           }
+           return homeController
+       }()
+
     override init() {
         super.init()
         EventEmitter.sharedInstance.registerEventEmitter(eventEmitter: self)
@@ -22,20 +29,46 @@ class HomeBridge: RCTEventEmitter {
 
     @objc(fetchData)
     public func fetchData(){
-        DispatchQueue.main.async {
-            guard let homeController = UIApplication.shared.delegate?.window??.rootViewController?.topMostViewController() as? HomeController else {
-                fatalError("Can't happen, can only be called from HomeController")
-            }
-            homeController.fetchData()
+        DispatchQueue.main.async { [weak self] in
+            self?.homeController?.fetchData()
         }
+    }
+
+    @objc(addToCart:)
+    public func addToCart(productId: Int){
+        DispatchQueue.main.async { [weak self] in
+            self?.homeController?.addToCart(productId: productId)
+        }
+    }
+
+    @objc(addToWishList:)
+    public func addToWishList(productDict: [String: Any]){
+        DispatchQueue.main.async { [weak self] in
+            self?.homeController?.addToWishList(productDict: productDict)
+        }
+    }
+
+    @objc(removeFromWishList:)
+    public func removeFromWishList(productDict: [String: Any]){
+        DispatchQueue.main.async { [weak self] in
+            self?.homeController?.removeFromWishList(productDict: productDict)
+        }
+    }
+
+    public func onSuccessComplete(message: String) {
+        EventEmitter.sharedInstance.dispatch(name: "onSuccess", body: message)
     }
 
     public func onErrorOccured(reason: String) {
         EventEmitter.sharedInstance.dispatch(name: "onError", body: reason)
     }
 
+    public func updateWishList(ids: [Int]) {
+        EventEmitter.sharedInstance.dispatch(name: "onSetWishListIds", body: ids)
+    }
+
     public func onDataRetrieved(data: [[String: Any]]) {
-        EventEmitter.sharedInstance.dispatch(name: "onSuccess", body: data)
+        EventEmitter.sharedInstance.dispatch(name: "onDataRetrieved", body: data)
     }
 }
 

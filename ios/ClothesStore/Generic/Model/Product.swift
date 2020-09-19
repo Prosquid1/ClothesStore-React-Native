@@ -8,6 +8,8 @@
 
 import RealmSwift
 
+private let decoder = JSONDecoder()
+
 class Product: Object, Codable
 {
     @objc dynamic var id: Int
@@ -20,4 +22,14 @@ class Product: Object, Codable
     override class func primaryKey() -> String? {
         return "id"
     }
+
+    static func fromDictionary(dict: [String: Any]) -> Product? {
+        let jsonData = try? JSONSerialization.data(withJSONObject: dict, options: [])
+        guard let deserializedJsonData = jsonData else {
+            return nil
+        }
+        return try? decoder.decode(Product.self, from: deserializedJsonData)
+    }
+
+
 }
