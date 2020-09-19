@@ -52,6 +52,10 @@ class HomeBridge: RCTEventEmitter {
         EventEmitter.sharedInstance.dispatch(name: "onError", body: reason)
     }
 
+    public func updateWishList(ids: [Int]) {
+        EventEmitter.sharedInstance.dispatch(name: "onSetWishListIds", body: ids)
+    }
+
     public func onDataRetrieved(data: [[String: Any]]) {
         EventEmitter.sharedInstance.dispatch(name: "onSuccess", body: data)
     }
