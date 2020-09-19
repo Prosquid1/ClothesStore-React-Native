@@ -4,8 +4,11 @@ import React, {
     useEffect
 } from 'react';
 
-import { NativeEventEmitter, FlatList, RefreshControl } from 'react-native';
+import { NativeEventEmitter, FlatList,Image, RefreshControl } from 'react-native';
 import HomeBridge from './bridges';
+
+const starIcon = require('./assets/star_icon.png');
+const cartIcon = require('./ios/ClothesStore/App/Assets.xcassets/cart_icon.imageset/cart_icon.png');
 
 import {
     AppRegistry,
@@ -64,8 +67,12 @@ const RNHome = () => {
                     </View>
                 </View>
                 <View style={styles.buttonsContainer}>
-                    <TouchableOpacity style={styles.starButton} onPress={() => onRemoveFromWishListPressed(product)} />
-                    <TouchableOpacity style={styles.cartButton} onPress={() => onAddToWishListPressed(product)} />
+                    <TouchableOpacity onPress={() => onRemoveFromWishListPressed(product)}>
+                        <Image style={styles.starButton} source={starIcon} />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => onAddToWishListPressed(product)}>
+                        <Image style={styles.cartButton} source={cartIcon} />
+                    </TouchableOpacity>
                 </View>
             </View>)
     });
@@ -130,15 +137,13 @@ const styles = StyleSheet.create({
         flexDirection: 'column'
     },
     starButton: {
-        backgroundColor: 'gold',
-        height: 16,
-        width: 16
+        height: 18,
+        width: 18
     },
     cartButton: {
-        backgroundColor: 'brown',
         marginTop: 10,
-        height: 20,
-        width: 20
+        height: 18,
+        width: 18
     },
     buttonsContainer: {
         flexDirection: 'column',
