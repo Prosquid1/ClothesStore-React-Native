@@ -18,7 +18,7 @@ import {
 
 const RNHome = () => {
 
-    const demoColors = ["#D65650","#D65650", "#3530D1", "#D65650" ]
+    const demoColors = ["#D65650", "#D65650", "#3530D1", "#D65650"]
     const [products, setProducts] = useState([])
     const [refreshing, setRefreshing] = useState(false)
     const eventEmitter = new NativeEventEmitter(HomeBridge);
@@ -50,22 +50,24 @@ const RNHome = () => {
         fetchData()
     }, []);
 
-    const renderProduct = useCallback((item, index) => {
+    const renderProduct = useCallback((product, index) => {
         return (
-        <View style={styles.line}>
-            <View style={[styles.image, {backgroundColor: demoColors[index]}]}/>
-            <View style={styles.textContainer}>
-                <Text style={styles.productName}>{item.name}</Text>
-                <Text style={styles.productCategory}>{item.category}</Text> 
-                <View style={styles.priceContainer}><Text style={styles.productPrice}>{item.price}</Text>
-                {item.oldPrice && (<Text style={styles.productOldPrice}>{`(${item.oldPrice})`}</Text>)}
+            <View style={styles.cellRow}>
+                <View style={[styles.image, { backgroundColor: demoColors[index] }]}>
+                    {product.stock == 0 && <Text style={styles.soldOutText}>SOLD OUT</Text>}
                 </View>
-            </View>
-            <View style={styles.buttonsContainer}>
-                <TouchableOpacity style={styles.starButton} onPress={ () => onRemoveFromWishListPressed(item)}/>
-                <TouchableOpacity style={styles.cartButton} onPress={ () => onAddToWishListPressed(item)}/>
-            </View>
-        </View>)
+                <View style={styles.detailsContainer}>
+                    <Text style={styles.productName}>{product.name}</Text>
+                    <Text style={styles.productCategory}>{product.category}</Text>
+                    <View style={styles.priceContainer}><Text style={styles.productPrice}>{`£${product.price}`}</Text>
+                        {product.oldPrice && (<Text style={styles.productOldPrice}>{`(£${product.oldPrice})`}</Text>)}
+                    </View>
+                </View>
+                <View style={styles.buttonsContainer}>
+                    <TouchableOpacity style={styles.starButton} onPress={() => onRemoveFromWishListPressed(product)} />
+                    <TouchableOpacity style={styles.cartButton} onPress={() => onAddToWishListPressed(product)} />
+                </View>
+            </View>)
     });
 
     return (
@@ -87,9 +89,10 @@ const RNHome = () => {
 
 const styles = StyleSheet.create({
     image: {
-        height: 57.5,
-        width: 57.5,
+        height: 60,
+        width: 60,
         borderRadius: 30,
+        justifyContent: "center",
         backgroundColor: 'red'
     },
     productName: {
@@ -101,6 +104,7 @@ const styles = StyleSheet.create({
     productCategory: {
         color: 'gray',
         flexShrink: 1,
+        marginVertical: 1.6,
         fontSize: 14.0
     },
     productPrice: {
@@ -119,38 +123,45 @@ const styles = StyleSheet.create({
     priceContainer: {
         flexDirection: 'row'
     },
-    textContainer: {
+    detailsContainer: {
         flexGrow: 1,
         marginVertical: 4,
         marginHorizontal: 11.4,
-        alignItems: 'flex-start',
-        flexDirection: 'column'    
+        flexDirection: 'column'
     },
     starButton: {
         backgroundColor: 'gold',
         height: 16,
-        width: 16   
+        width: 16
     },
     cartButton: {
         backgroundColor: 'brown',
         marginTop: 10,
         height: 20,
-        width: 20   
+        width: 20
     },
     buttonsContainer: {
         flexDirection: 'column',
         alignItems: 'center'
 
     },
-    line: {
+    cellRow: {
         height: 72,
         flexDirection: 'row',
         paddingLeft: 10,
         paddingEnd: 20,
         alignItems: 'center',
-        borderWidth: 0.2,
-        borderColor: 'grey',
-    }
+        borderWidth: 0.19,
+        borderColor: '#DDD',
+    },
+    soldOutText: {
+        color: 'white',
+        transform: [{ rotate: '315deg' }],
+        flexShrink: 1,
+        fontSize: 13.0,
+        textAlign: "center",
+        fontWeight: "600",
+    },
 });
 
 // Module name
