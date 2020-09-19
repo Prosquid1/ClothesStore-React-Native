@@ -27,6 +27,7 @@ const RNHome = () => {
 
     const demoColors = ["#D65650", "#D65650", "#50369D", "#D65650"]
     const [products, setProducts] = useState([])
+
     const [wishListIds, setWishListIds] = useState([])
     const [refreshing, setRefreshing] = useState(false)
     const eventEmitter = new NativeEventEmitter(HomeBridge);
@@ -34,7 +35,6 @@ const RNHome = () => {
     const fetchData = useCallback(() => HomeBridge.fetchData(), [
         HomeBridge
     ]);
-
     const onAddToWishListPressed = useCallback((product) => HomeBridge.addToWishList(product), [
         HomeBridge
     ]);

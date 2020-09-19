@@ -10,12 +10,12 @@
   "dependencies": {
     "react": "~16.11.0",
     "react-dom": "~16.11.0",
-    "react-native": "~0.62.2",
-    "expo-asset": "^8.1.7"
+    "react-native": "~0.62.2"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
     "babel-jest": "~25.2.6",
+    "expo": "^38.0.10",
     "jest": "~25.2.6",
     "react-test-renderer": "~16.11.0"
   },
