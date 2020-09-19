@@ -6,27 +6,49 @@
 //
 
 import UIKit
+import React
 
 class HomeController: BaseViewController {
+
+    let reactNativeEmitter = HomeBridge()
+
+    private lazy var rnRootView: RCTRootView = {
+        let jsCodeLocation = URL(string: "http://localhost:8081/index.bundle?platform=ios")!
+        return RCTRootView(
+            bundleURL: jsCodeLocation,
+            moduleName: "RNHome",
+            initialProperties: nil,
+            launchOptions: nil
+        )
+    }()
+
     private var homePresenter: DataSourcePresenter<Product>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         homePresenter = DataSourcePresenter(dataControllerDelegate: self,
                                             cartUpdateDelegate: self)
-        configureTableView()
+
+        self.view = rnRootView
 
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tabBarController?.title = "Home"
-        fetchData()
     }
 
-    private func fetchData() {
-        homePresenter.refreshWishListIds()
-        homePresenter.retrieveData(path: "products")
+    func fetchData() {
+        let decoder = JSONDecoder()
+        guard
+            let url = Bundle.main.url(forResource: "RNHomeDummyData", withExtension: "json"),
+            let data = try? Data(contentsOf: url),
+            let products = try? JSONSerialization.jsonObject(with: data, options: []) as? [[String: Any]]
+        else {
+            reactNativeEmitter.onErrorOccured(reason: "Unable to decode data!")
+            return
+        }
+        reactNativeEmitter.onDataRetrieved(data: products)
     }
 }
 
@@ -44,68 +66,21 @@ extension HomeController: CartUpdateDelegate {
 
 extension HomeController: DataSourceDelegate {
     func dataRetrieved<T>(data: [T]) {
-        refreshViewForNewDataState()
+        // Alert React Native and render
+        reactNativeEmitter.onDataRetrieved(data: []) //Will pass data later)
     }
     
     func didStartFetchingData() {
-        _refreshControl.beginRefreshing()
+        //Will be handled by Bridge
     }
     
     func dataIsEmpty() {
         refreshViewForNewDataState()
-        showTopErrorNote("No items available!")
+        reactNativeEmitter.onErrorOccured(reason: "No items available!")
     }
     
     func dataFetchingFailed(errorMessage: String) {
         _refreshControl.endRefreshing()
-        showTopErrorNote(errorMessage)
-    }
-}
-
-extension HomeController {
-    private func configureTableView() {
-        tableView.register(UINib.init(nibName: "ProductItemCell", bundle: nil), forCellReuseIdentifier: ProductItemCell.identifier)
-        refreshStarted = { [unowned self] in
-            self.fetchData()
-        }
-    }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return homePresenter.dataCount
-    }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let productItemCell = tableView.dequeueReusableCell(withIdentifier: ProductItemCell.identifier) as! ProductItemCell
-        productItemCell.selectionStyle = .none
-        let product = homePresenter.itemForRow(row: indexPath.row)
-        GenericProductViewConfigurator.configure(product: product, genericProductView:
-            productItemCell.genericProductView)
-
-        //There is an issue with using setSelected and the library's default icon color, hence the logic below
-        //Calling isSelected maiantains the default icon color but will enable the star animation every time cell is rendered
-
-        let itemInWishList = homePresenter.isItemInWishList(productId: product.id)
-        if (itemInWishList) {
-            productItemCell.addToWishlistButton.setSelected(selected: true, animated: false)
-        } else {
-            productItemCell.addToWishlistButton.isSelected = false
-        }
-
-
-        productItemCell.addToCartButton.isEnabled = product.stock != 0
-        productItemCell.addToCartButton.alpha = product.stock == 0 ? 0.4 : 1
-
-        productItemCell.addedItemToCart = { [weak self] in
-            self?.homePresenter.addToCart(id: product.id)
-        }
-
-        productItemCell.addedItemToWishList = { [weak self] in
-            productItemCell.addToWishlistButton.isSelected ?
-                self?.homePresenter.addToWishList(product: product):
-                self?.homePresenter.removeFromWishList(product: product)
-
-        }
-
-        return productItemCell
+        reactNativeEmitter.onErrorOccured(reason: errorMessage)
     }
 }
