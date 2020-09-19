@@ -18,6 +18,7 @@ import {
 
 const RNHome = () => {
 
+    const demoColors = ["#D65650","#D65650", "#3530D1", "#D65650" ]
     const [products, setProducts] = useState([])
     const [refreshing, setRefreshing] = useState(false)
     const eventEmitter = new NativeEventEmitter(HomeBridge);
@@ -49,10 +50,10 @@ const RNHome = () => {
         fetchData()
     }, []);
 
-    const renderProduct = useCallback((item) => {
+    const renderProduct = useCallback((item, index) => {
         return (
         <View style={styles.line}>
-            <View style={styles.image}/>
+            <View style={[styles.image, {backgroundColor: demoColors[index]}]}/>
             <View style={styles.textContainer}>
                 <Text style={styles.productName}>{item.name}</Text>
                 <Text style={styles.productCategory}>{item.category}</Text> 
@@ -71,7 +72,7 @@ const RNHome = () => {
         <View style={{ flex: 1 }}>
             <FlatList
                 data={products}
-                renderItem={({ item }) => renderProduct(item)}
+                renderItem={({ item, index }) => renderProduct(item, index)}
                 refreshControl={
                     <RefreshControl
                         refreshing={refreshing}
