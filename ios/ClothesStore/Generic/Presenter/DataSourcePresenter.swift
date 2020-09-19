@@ -13,17 +13,21 @@ class DataSourcePresenter<T> where T: Codable {
 
     private var data = [T]()
 
-    let dataControllerDelegate: DataSourceDelegate
-    let cartUpdateDelegate: CartUpdateDelegate
+    let dataControllerDelegate: DataSourceDelegate?
+    let cartUpdateDelegate: CartUpdateDelegate?
 
     var dataCount: Int {
         get { return data.count }
     }
 
-    required init(dataControllerDelegate: DataSourceDelegate,
-                  cartUpdateDelegate: CartUpdateDelegate ) {
+    required init(dataControllerDelegate: DataSourceDelegate?,
+                  cartUpdateDelegate: CartUpdateDelegate? ) {
         self.dataControllerDelegate = dataControllerDelegate
         self.cartUpdateDelegate = cartUpdateDelegate
+    }
+
+    convenience init() {
+        self.init(dataControllerDelegate: nil, cartUpdateDelegate: nil)
     }
 
     func itemForRow(row: Int) -> T {
@@ -59,9 +63,9 @@ extension DataSourcePresenter {
                                                      params: ["productId": id],
                                                      onSuccess: {
                                                         [weak self] response in
-                                                        self?.cartUpdateDelegate.onCartUpdateSuccess(message: response.message)
+                                                        self?.cartUpdateDelegate?.onCartUpdateSuccess(message: response.message)
         }){ [weak self] errorMessage in
-            self?.cartUpdateDelegate.onCartUpdateFailed(reason: errorMessage)
+            self?.cartUpdateDelegate?.onCartUpdateFailed(reason: errorMessage)
 
         }
     }
@@ -72,28 +76,28 @@ extension DataSourcePresenter {
                                                   params: ["id": id],
                                                   onSuccess: {
                                                     [weak self] response in
-                                                    self?.cartUpdateDelegate.onCartUpdateSuccess(message: "Deleted successfully!")
+                                                    self?.cartUpdateDelegate?.onCartUpdateSuccess(message: "Deleted successfully!")
         }){ [weak self] errorMessage in
-            self?.cartUpdateDelegate.onCartUpdateFailed(reason: errorMessage)
+            self?.cartUpdateDelegate?.onCartUpdateFailed(reason: errorMessage)
 
         }
     }
 
     func retrieveData(path: String = "\(T.self)", params: [String: Any]? = nil) {
-        dataControllerDelegate.didStartFetchingData()
+        dataControllerDelegate?.didStartFetchingData()
 
         NetworkHelper<[T]>.makeRequest(path: path, onSuccess: {
             [weak self] data in
 
             guard !data.isEmpty else {
-                self?.dataControllerDelegate.dataIsEmpty()
+                self?.dataControllerDelegate?.dataIsEmpty()
                 return
             }
 
             self?.data = data
-            self?.dataControllerDelegate.dataRetrieved(data: data)
+            self?.dataControllerDelegate?.dataRetrieved(data: data)
         }){ [weak self] errorMessage in
-            self?.dataControllerDelegate.dataFetchingFailed(errorMessage: errorMessage)
+            self?.dataControllerDelegate?.dataFetchingFailed(errorMessage: errorMessage)
 
         }
     }

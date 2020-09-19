@@ -26,8 +26,7 @@ class HomeController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        homePresenter = DataSourcePresenter(dataControllerDelegate: self,
-                                            cartUpdateDelegate: self)
+        homePresenter = DataSourcePresenter()
 
         self.view = rnRootView
 
@@ -69,34 +68,5 @@ class HomeController: BaseViewController {
         } else {
             reactNativeEmitter.onErrorOccured(reason: "Unable to remove product (Err -41)!")
         }
-    }
-}
-
-extension HomeController: CartUpdateDelegate {
-    func onCartUpdateSuccess(message: String) {
-        //Will now be handled by Bridge
-    }
-
-    func onCartUpdateFailed(reason: String) {
-        //Will now be handled by Bridge
-    }
-}
-
-
-extension HomeController: DataSourceDelegate {
-    func dataRetrieved<T>(data: [T]) {
-        //Will now be handled by Bridge
-    }
-    
-    func didStartFetchingData() {
-        //Will be handled by Bridge
-    }
-    
-    func dataIsEmpty() {
-        //Will now be handled by Bridge
-    }
-    
-    func dataFetchingFailed(errorMessage: String) {
-        //Will now be handled by Bridge
     }
 }
