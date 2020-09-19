@@ -8,27 +8,27 @@
         "stock": 0
     },
     {
-        "id": 1,
-        "name": "Blue Socks",
-        "category": "Shoes",
+        "id": 2,
+        "name": "Red Socks",
+        "category": "Socks",
         "price": "8.00",
-        "oldPrice": "9.00",
+        "oldPrice": "2.00",
         "stock": 0
     },
     {
-        "id": 1,
-        "name": "Blue Socks",
+        "id": 3,
+        "name": "Blue Shoes",
         "category": "Shoes",
         "price": "8.00",
-        "oldPrice": "9.00",
+        "oldPrice": "4.00",
         "stock": 0
     },
     {
-        "id": 1,
-        "name": "Blue Socks",
-        "category": "Shoes",
-        "price": "8.00",
-        "oldPrice": "9.00",
-        "stock": 0
+        "id": 4,
+        "name": "Blue Sweater",
+        "category": "Shirts",
+        "price": "9.00",
+        "oldPrice": "8.50",
+        "stock": 10
     }
 ]
