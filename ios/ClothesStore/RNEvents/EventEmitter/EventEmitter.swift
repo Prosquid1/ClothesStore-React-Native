@@ -17,7 +17,7 @@ class EventEmitter {
     }
 
     lazy var allEvents: [String] = {
-        return ["onError", "onSuccess", "onSetWishListIds"]
+        return ["onError", "onSuccess", "onSetWishListIds", "onDataRetrieved"]
     }()
     
 }

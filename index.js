@@ -40,18 +40,22 @@ const RNHome = () => {
         HomeBridge
     ]);
 
-    const onAddToCartPressed = useCallback((product) => HomeBridge.addToCart(product), [
+    const onAddToCartPressed = useCallback((product) => HomeBridge.addToCart(product.id), [
         HomeBridge
     ]);
 
     useEffect(() => {
-        eventEmitter.addListener('onSuccess', newProducts => {
+        eventEmitter.addListener('onDataRetrieved', newProducts => {
             setRefreshing(false)
             setProducts(newProducts)
         });
         eventEmitter.addListener('onError', errorMessage => {
             setRefreshing(false)
             Alert.alert("Error", errorMessage)
+        });
+
+        eventEmitter.addListener('onSuccess', errorMessage => {
+            Alert.alert("Success!", errorMessage)
         });
 
         eventEmitter.addListener('onSetWishListIds', ids => {
@@ -81,7 +85,7 @@ const RNHome = () => {
                     <TouchableOpacity onPress={() => isItemInWishList(product.id) ? onRemoveFromWishListPressed(product) : onAddToWishListPressed(product)}>
                         <Image style={styles.starButton} source={isItemInWishList(product.id) ? starSelectedIcon : starDeselectedIcon} />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => onAddToWishListPressed(product)}>
+                    <TouchableOpacity onPress={() => onAddToCartPressed(product)}>
                         <Image style={styles.cartButton} source={cartIcon} />
                     </TouchableOpacity>
                 </View>
@@ -148,13 +152,13 @@ const styles = StyleSheet.create({
         flexDirection: 'column'
     },
     starButton: {
-        height: 18,
-        width: 18
+        height: 16,
+        width: 16
     },
     cartButton: {
         marginTop: 10,
-        height: 18,
-        width: 18
+        height: 16,
+        width: 16
     },
     buttonsContainer: {
         flexDirection: 'column',
@@ -165,7 +169,7 @@ const styles = StyleSheet.create({
         height: 72,
         flexDirection: 'row',
         paddingLeft: 10,
-        paddingEnd: 20,
+        paddingEnd: 22,
         alignItems: 'center',
         borderWidth: 0.19,
         borderColor: '#DDD',

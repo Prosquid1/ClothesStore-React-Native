@@ -34,6 +34,13 @@ class HomeBridge: RCTEventEmitter {
         }
     }
 
+    @objc(addToCart:)
+    public func addToCart(productId: Int){
+        DispatchQueue.main.async { [weak self] in
+            self?.homeController?.addToCart(productId: productId)
+        }
+    }
+
     @objc(addToWishList:)
     public func addToWishList(productDict: [String: Any]){
         DispatchQueue.main.async { [weak self] in
@@ -48,6 +55,10 @@ class HomeBridge: RCTEventEmitter {
         }
     }
 
+    public func onSuccessComplete(message: String) {
+        EventEmitter.sharedInstance.dispatch(name: "onSuccess", body: message)
+    }
+
     public func onErrorOccured(reason: String) {
         EventEmitter.sharedInstance.dispatch(name: "onError", body: reason)
     }
@@ -57,7 +68,7 @@ class HomeBridge: RCTEventEmitter {
     }
 
     public func onDataRetrieved(data: [[String: Any]]) {
-        EventEmitter.sharedInstance.dispatch(name: "onSuccess", body: data)
+        EventEmitter.sharedInstance.dispatch(name: "onDataRetrieved", body: data)
     }
 }
 

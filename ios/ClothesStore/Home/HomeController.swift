@@ -26,7 +26,7 @@ class HomeController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        homePresenter = DataSourcePresenter()
+        homePresenter = DataSourcePresenter(dataControllerDelegate: nil, cartUpdateDelegate: self)
 
         self.view = rnRootView
 
@@ -52,6 +52,10 @@ class HomeController: BaseViewController {
         reactNativeEmitter.onDataRetrieved(data: products)
     }
 
+    func addToCart(productId: Int) {
+        homePresenter.addToCart(id: productId)
+    }
+
     func addToWishList(productDict: [String: Any]) {
         if let deserializedProduct = Product.fromDictionary(dict: productDict) {
             homePresenter.addToWishList(product: deserializedProduct)
@@ -68,5 +72,15 @@ class HomeController: BaseViewController {
         } else {
             reactNativeEmitter.onErrorOccured(reason: "Unable to remove product (Err -41)!")
         }
+    }
+}
+
+extension HomeController: CartUpdateDelegate {
+    func onCartUpdateSuccess(message: String) {
+        reactNativeEmitter.onSuccessComplete(message: message)
+    }
+
+    func onCartUpdateFailed(reason: String) {
+        reactNativeEmitter.onErrorOccured(reason: reason)
     }
 }

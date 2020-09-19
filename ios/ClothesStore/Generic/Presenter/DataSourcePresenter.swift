@@ -14,20 +14,16 @@ class DataSourcePresenter<T> where T: Codable {
     private var data = [T]()
 
     let dataControllerDelegate: DataSourceDelegate?
-    let cartUpdateDelegate: CartUpdateDelegate?
+    let cartUpdateDelegate: CartUpdateDelegate
 
     var dataCount: Int {
         get { return data.count }
     }
 
     required init(dataControllerDelegate: DataSourceDelegate?,
-                  cartUpdateDelegate: CartUpdateDelegate? ) {
+                  cartUpdateDelegate: CartUpdateDelegate ) {
         self.dataControllerDelegate = dataControllerDelegate
         self.cartUpdateDelegate = cartUpdateDelegate
-    }
-
-    convenience init() {
-        self.init(dataControllerDelegate: nil, cartUpdateDelegate: nil)
     }
 
     func itemForRow(row: Int) -> T {
@@ -63,9 +59,9 @@ extension DataSourcePresenter {
                                                      params: ["productId": id],
                                                      onSuccess: {
                                                         [weak self] response in
-                                                        self?.cartUpdateDelegate?.onCartUpdateSuccess(message: response.message)
+                                                        self?.cartUpdateDelegate.onCartUpdateSuccess(message: response.message)
         }){ [weak self] errorMessage in
-            self?.cartUpdateDelegate?.onCartUpdateFailed(reason: errorMessage)
+            self?.cartUpdateDelegate.onCartUpdateFailed(reason: errorMessage)
 
         }
     }
@@ -76,9 +72,9 @@ extension DataSourcePresenter {
                                                   params: ["id": id],
                                                   onSuccess: {
                                                     [weak self] response in
-                                                    self?.cartUpdateDelegate?.onCartUpdateSuccess(message: "Deleted successfully!")
+                                                    self?.cartUpdateDelegate.onCartUpdateSuccess(message: "Deleted successfully!")
         }){ [weak self] errorMessage in
-            self?.cartUpdateDelegate?.onCartUpdateFailed(reason: errorMessage)
+            self?.cartUpdateDelegate.onCartUpdateFailed(reason: errorMessage)
 
         }
     }
