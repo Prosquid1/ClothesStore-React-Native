@@ -1,12 +1,10 @@
 import React, {
     useCallback,
-    useMemo,
     useState,
-    useRef,
     useEffect
 } from 'react';
 
-import { NativeEventEmitter } from 'react-native';
+import { NativeEventEmitter, FlatList, RefreshControl } from 'react-native';
 import HomeBridge from './bridges';
 
 import {
@@ -17,29 +15,45 @@ import {
 } from 'react-native';
 
 const RNHome = () => {
+
+    const [products, setProducts] = useState([])
+    const [refreshing, setRefreshing] = useState(false)
     const eventEmitter = new NativeEventEmitter(HomeBridge);
 
     const fetchData = useCallback(() => HomeBridge.fetchData(), [
         HomeBridge
-      ]);
+    ]);
 
-    
+
     useEffect(() => {
-        eventEmitter.addListener('onSuccess', value => {
-            console.log(`Data changed ${value[0].name}`);
+        eventEmitter.addListener('onSuccess', newProducts => {
+            console.log(`New products ${newProducts}`);
+            setRefreshing(false)
+            setProducts(newProducts)
         });
         eventEmitter.addListener('onError', errorMessage => {
+            setRefreshing(false)
             console.log(errorMessage);
         });
+
+        setRefreshing(true)
         fetchData()
-    }, [eventEmitter, fetchData]);
+    }, []);
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.textStyle}>
-                Test Data for RN Home
-        </Text>
+        <View style={{ flex: 1 }}>
+            <FlatList
+                data={products}
+                renderItem={({ item }) => <Text style={styles.line}>{item.name}</Text>}
+                refreshControl={
+                    <RefreshControl
+                        refreshing={refreshing}
+                        onRefresh={fetchData}
+                    />
+                }
+            />
         </View>
+
     );
 }
 
@@ -54,6 +68,14 @@ const styles = StyleSheet.create({
         fontSize: 20,
         textAlign: 'center',
         margin: 10
+    },
+    line: {
+        height: 50,
+        paddingTop: 17,
+        textAlign: 'center',
+        backgroundColor: 'orange',
+        borderWidth: 1,
+        borderColor: 'purple',
     }
 });
 

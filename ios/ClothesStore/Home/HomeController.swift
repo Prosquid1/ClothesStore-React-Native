@@ -35,11 +35,11 @@ class HomeController: BaseViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isTranslucent = false
         self.tabBarController?.title = "Home"
     }
 
     func fetchData() {
-        let decoder = JSONDecoder()
         guard
             let url = Bundle.main.url(forResource: "RNHomeDummyData", withExtension: "json"),
             let data = try? Data(contentsOf: url),
@@ -49,6 +49,22 @@ class HomeController: BaseViewController {
             return
         }
         reactNativeEmitter.onDataRetrieved(data: products)
+    }
+
+    func addToWishList(productDict: [String: Any]) {
+        if let deserializedProduct = Product.fromDictionary(dict: productDict) {
+            homePresenter.addToWishList(product: deserializedProduct)
+        } else {
+            reactNativeEmitter.onErrorOccured(reason: "Unable to add product (Err -40)!")
+        }
+    }
+
+    func removeFromWishList(productDict: [String: Any]) {
+        if let deserializedProduct = Product.fromDictionary(dict: productDict) {
+            homePresenter.removeFromWishList(product: deserializedProduct)
+        } else {
+            reactNativeEmitter.onErrorOccured(reason: "Unable to remove product (Err -41)!")
+        }
     }
 }
 
