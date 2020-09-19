@@ -39,8 +39,16 @@ class HomeController: BaseViewController {
     }
 
     func fetchData() {
-        homePresenter.refreshWishListIds()
-        homePresenter.retrieveData(path: "products")
+        let decoder = JSONDecoder()
+        guard
+            let url = Bundle.main.url(forResource: "RNHomeDummyData", withExtension: "json"),
+            let data = try? Data(contentsOf: url),
+            let products = try? JSONSerialization.jsonObject(with: data, options: []) as? [[String: Any]]
+        else {
+            reactNativeEmitter.onErrorOccured(reason: "Unable to decode data!")
+            return
+        }
+        reactNativeEmitter.onDataRetrieved(data: products)
     }
 }
 

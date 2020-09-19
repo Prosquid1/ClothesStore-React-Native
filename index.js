@@ -25,8 +25,8 @@ const RNHome = () => {
 
     
     useEffect(() => {
-        eventEmitter.addListener('DataChanged', dataChangedEventValue => {
-            console.log(`Data changed ${dataChangedEventValue}`);
+        eventEmitter.addListener('onSuccess', value => {
+            console.log(`Data changed ${value[0].name}`);
         });
         eventEmitter.addListener('onError', errorMessage => {
             console.log(errorMessage);

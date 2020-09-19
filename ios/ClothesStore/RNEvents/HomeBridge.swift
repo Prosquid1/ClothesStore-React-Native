@@ -34,7 +34,7 @@ class HomeBridge: RCTEventEmitter {
         EventEmitter.sharedInstance.dispatch(name: "onError", body: reason)
     }
 
-    public func onDataRetrieved(data: [AnyObject]) {
+    public func onDataRetrieved(data: [[String: Any]]) {
         EventEmitter.sharedInstance.dispatch(name: "onSuccess", body: data)
     }
 }
