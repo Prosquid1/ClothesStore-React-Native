@@ -40,11 +40,25 @@ const RNHome = () => {
         fetchData()
     }, []);
 
+    const renderProduct = useCallback((item) => {
+        return (
+        <View style={styles.line}>
+            <View style={styles.image}/>
+            <View style={styles.textContainer}>
+                <Text style={styles.productName}>{item.name}</Text>
+                <Text style={styles.productName}>{item.category}</Text>
+                <View style={styles.priceContainer}><Text style={styles.productName}>{item.price}</Text>
+                {item.oldPrice && (<Text style={styles.oldPrice}>{`(${item.oldPrice})`}</Text>)}
+                </View>
+            </View>
+        </View>)
+    });
+
     return (
         <View style={{ flex: 1 }}>
             <FlatList
                 data={products}
-                renderItem={({ item }) => <Text style={styles.line}>{item.name}</Text>}
+                renderItem={({ item }) => renderProduct(item)}
                 refreshControl={
                     <RefreshControl
                         refreshing={refreshing}
@@ -58,24 +72,35 @@ const RNHome = () => {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#FFFFFF'
+    image: {
+        height: 40,
+        width: 40,
+        borderRadius: 20,
+        backgroundColor: 'red'
     },
-    textStyle: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10
+    productName: {
+        textAlign: 'center'
+    },
+    priceContainer: {
+        flexDirection: 'row'
+    },
+    oldPrice: {
+        marginLeft: 5
+    },
+    textContainer: {
+        flex: 0.5,
+        marginLeft: 16,
+        alignItems: 'flex-start',
+        flexDirection: 'column'
+        
     },
     line: {
-        height: 50,
-        paddingTop: 17,
-        textAlign: 'center',
-        backgroundColor: 'orange',
-        borderWidth: 1,
-        borderColor: 'purple',
+        height: 60,
+        flexDirection: 'row',
+        paddingHorizontal: 16,
+        alignItems: 'center',
+        borderWidth: 0.2,
+        borderColor: 'grey',
     }
 });
 
