@@ -25,6 +25,14 @@ describe("ProductItem", () => {
     expect(getByText("SOLD OUT")).toBeTruthy();
   });
 
+  it("does not render sold out when stock is more than zero", () => {
+    const product = { ...defaultProps.product, stock: 7 };
+    const { queryByText } = render(
+      <ProductItem {...defaultProps} product={product} />
+    );
+    expect(queryByText("SOLD OUT")).not.toBeTruthy();
+  });
+
   it("adds item to wishlist", () => {
     const { getByTestId } = render(<ProductItem {...defaultProps} />);
     fireEvent.press(getByTestId("wishListButton"));
