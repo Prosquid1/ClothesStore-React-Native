@@ -13,8 +13,7 @@ class HomeController: BaseViewController {
     var homePresenter: HomePresenter!
 
     private lazy var rnRootView: RCTRootView = {
-        let jsCodeLocation = URL(string: "http://localhost:8081/index.bundle?platform=ios")!
-        //let jsCodeLocation = Bundle.main.url(forResource: "main", withExtension: "jsbundle")!
+        let jsCodeLocation = Bundle.main.url(forResource: "main", withExtension: "jsbundle")!
         return RCTRootView(
             bundleURL: jsCodeLocation,
             moduleName: "RNHome",
