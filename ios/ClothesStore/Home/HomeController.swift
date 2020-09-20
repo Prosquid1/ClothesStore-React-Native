@@ -10,6 +10,8 @@ import React
 
 class HomeController: BaseViewController {
 
+    var homePresenter: HomePresenter!
+
     private lazy var rnRootView: RCTRootView = {
         let jsCodeLocation = URL(string: "http://localhost:8081/index.bundle?platform=ios")!
         //let jsCodeLocation = Bundle.main.url(forResource: "main", withExtension: "jsbundle")!
@@ -20,8 +22,6 @@ class HomeController: BaseViewController {
             launchOptions: nil
         )
     }()
-
-    var homePresenter: HomePresenter!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +34,11 @@ class HomeController: BaseViewController {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isTranslucent = false
         self.tabBarController?.title = "RN-Home"
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
     }
 
 }
