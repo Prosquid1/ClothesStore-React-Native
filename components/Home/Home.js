@@ -5,7 +5,7 @@ import {
   FlatList,
   RefreshControl,
   NativeEventEmitter,
-  View
+  View,
 } from "react-native";
 import HomeBridge from "../../bridges";
 
@@ -22,39 +22,39 @@ const RNHome = () => {
   const [wishListIds, setWishListIds] = useState([]);
 
   const onAddToWishListPressed = useCallback(
-    product => HomeBridge.addToWishList(product),
+    (product) => HomeBridge.addToWishList(product),
     []
   );
 
   const onRemoveFromWishListPressed = useCallback(
-    product => HomeBridge.removeFromWishList(product),
+    (product) => HomeBridge.removeFromWishList(product),
     []
   );
 
   const onAddToCartPressed = useCallback(
-    product => HomeBridge.addToCart(product.id),
+    (product) => HomeBridge.addToCart(product.id),
     []
   );
 
-  const isItemInWishList = useCallback(id => wishListIds.indexOf(id) > -1, [
-    wishListIds
+  const isItemInWishList = useCallback((id) => wishListIds.indexOf(id) > -1, [
+    wishListIds,
   ]);
 
   useEffect(() => {
-    eventEmitter.addListener("onDataRetrieved", newProducts => {
+    eventEmitter.addListener("onDataRetrieved", (newProducts) => {
       setRefreshing(false);
       setProducts(newProducts);
     });
-    eventEmitter.addListener("onError", errorMessage => {
+    eventEmitter.addListener("onError", (errorMessage) => {
       setRefreshing(false);
       Alert.alert("Error", errorMessage);
     });
 
-    eventEmitter.addListener("onSuccess", errorMessage => {
+    eventEmitter.addListener("onSuccess", (errorMessage) => {
       Alert.alert("Success!", errorMessage);
     });
 
-    eventEmitter.addListener("onSetWishListIds", ids => {
+    eventEmitter.addListener("onSetWishListIds", (ids) => {
       setWishListIds(ids);
     });
 
@@ -84,7 +84,11 @@ const RNHome = () => {
         data={products}
         renderItem={({ item, index }) => renderProductItem(item, index)}
         refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={fetchData} />
+          <RefreshControl
+            refreshing={refreshing}
+            tintColor="#795548"
+            onRefresh={fetchData}
+          />
         }
       />
     </View>

@@ -82,9 +82,9 @@
 		EA99A343251556EB007DED45 /* EventEmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA99A33F251556EB007DED45 /* EventEmitter.swift */; };
 		EA99A344251556EB007DED45 /* HomeBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA99A340251556EB007DED45 /* HomeBridge.swift */; };
 		EA99A346251564C7007DED45 /* RNHomeDummyData.json in Resources */ = {isa = PBXBuildFile; fileRef = EA99A345251564C7007DED45 /* RNHomeDummyData.json */; };
-		EA99A3762516CA9D007DED45 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = EA99A3752516CA9C007DED45 /* main.jsbundle */; };
 		EA99A37C2516CB5F007DED45 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = EA99A37B2516CB5F007DED45 /* assets */; };
 		EA9A3A12251804DF00E6569B /* HomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9A3A11251804DF00E6569B /* HomePresenter.swift */; };
+		EA9A3A142518089400E6569B /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = EA9A3A132518089400E6569B /* main.jsbundle */; };
 		EAA5279124C7FD0600DA907D /* DBTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA5279024C7FD0600DA907D /* DBTests.swift */; };
 		EAA5279524C8013400DA907D /* UIColorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA5279424C8013400DA907D /* UIColorTests.swift */; };
 		EAA5279724C803DA00DA907D /* StringTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA5279624C803DA00DA907D /* StringTest.swift */; };
@@ -167,9 +167,9 @@
 		EA99A33F251556EB007DED45 /* EventEmitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventEmitter.swift; sourceTree = "<group>"; };
 		EA99A340251556EB007DED45 /* HomeBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeBridge.swift; sourceTree = "<group>"; };
 		EA99A345251564C7007DED45 /* RNHomeDummyData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = RNHomeDummyData.json; sourceTree = "<group>"; };
-		EA99A3752516CA9C007DED45 /* main.jsbundle */ = {isa = PBXFileReference; lastKnownFileType = text; path = main.jsbundle; sourceTree = SOURCE_ROOT; };
 		EA99A37B2516CB5F007DED45 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = ../../assets; sourceTree = "<group>"; };
 		EA9A3A11251804DF00E6569B /* HomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
+		EA9A3A132518089400E6569B /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main.jsbundle; path = ../../main.jsbundle; sourceTree = "<group>"; };
 		EAA5279024C7FD0600DA907D /* DBTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBTests.swift; sourceTree = "<group>"; };
 		EAA5279424C8013400DA907D /* UIColorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorTests.swift; sourceTree = "<group>"; };
 		EAA5279624C803DA00DA907D /* StringTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringTest.swift; sourceTree = "<group>"; };
@@ -423,9 +423,9 @@
 				EAB56D4424B9A0D5006A8225 /* Cart */,
 				EAB56D5824B9B419006A8225 /* Helpers */,
 				EAB56D1B24B72CD4006A8225 /* Info.plist */,
-				EA99A3752516CA9C007DED45 /* main.jsbundle */,
 				EA99A37B2516CB5F007DED45 /* assets */,
 				EA99A345251564C7007DED45 /* RNHomeDummyData.json */,
+				EA9A3A132518089400E6569B /* main.jsbundle */,
 			);
 			path = ClothesStore;
 			sourceTree = "<group>";
@@ -597,11 +597,11 @@
 				EA332F6A24BAB86600ABA49A /* ProductItemCell.xib in Resources */,
 				EA332F5E24BAAD3800ABA49A /* GenericProductView.xib in Resources */,
 				EAB56D1A24B72CD4006A8225 /* LaunchScreen.storyboard in Resources */,
-				EA99A3762516CA9D007DED45 /* main.jsbundle in Resources */,
 				EA99A346251564C7007DED45 /* RNHomeDummyData.json in Resources */,
 				EA99A37C2516CB5F007DED45 /* assets in Resources */,
 				EA332FA424BEF29500ABA49A /* CartFooterView.xib in Resources */,
 				EAB56D1724B72CD4006A8225 /* Assets.xcassets in Resources */,
+				EA9A3A142518089400E6569B /* main.jsbundle in Resources */,
 				EA332FA024BEE8B400ABA49A /* CartItemCell.xib in Resources */,
 				EAB56D1524B72CD3006A8225 /* Main.storyboard in Resources */,
 			);
