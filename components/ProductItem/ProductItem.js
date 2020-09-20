@@ -7,9 +7,9 @@ import styles from "./styles";
 
 const demoColors = ["#D65650", "#3530D1", "#50369D", "#D65650"];
 
-const starSelectedIcon = require("../../../assets/star_selected_icon.png");
-const starDeselectedIcon = require("../../../assets/star_deselected_icon.png");
-const cartIcon = require("../../../ios/ClothesStore/App/Assets.xcassets/cart_icon.imageset/cart_icon.png");
+const starSelectedIcon = require("../../assets/star_selected_icon.png");
+const starDeselectedIcon = require("../../assets/star_deselected_icon.png");
+const cartIcon = require("../../ios/ClothesStore/App/Assets.xcassets/cart_icon.imageset/cart_icon.png");
 
 const ProductItemView = ({
   product,

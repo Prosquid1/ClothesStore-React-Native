@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import HomeBridge from "../../bridges";
 
-import ProductItemView from "./ProductItem";
+import ProductItemView from "../ProductItem";
 
 const RNHome = () => {
   const [products, setProducts] = useState([]);
