@@ -47,9 +47,4 @@ describe("ProductItem", () => {
     const { getByText } = render(<ProductItem {...defaultProps} />);
     expect(getByText("£5.00")).toBeTruthy();
   });
-
-  it("shows struck through old text format", () => {
-    const { getByText } = render(<ProductItem {...defaultProps} />);
-    expect(getByText("£̶6̶.̶0̶0̶")).toBeTruthy();
-  });
 });
