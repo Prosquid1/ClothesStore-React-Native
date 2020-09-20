@@ -17,7 +17,7 @@ const ProductItemView = ({
   onAddToWishListPressed,
   isItemInWishList,
   onRemoveFromWishListPressed,
-  onAddToCartPressed
+  onAddToCartPressed,
 }) => {
   return (
     <View style={styles.cellRow}>
@@ -32,14 +32,13 @@ const ProductItemView = ({
         <View style={styles.priceContainer}>
           <Text style={styles.productPrice}>{`£${product.price}`}</Text>
           {product.oldPrice && (
-            <Text
-              style={styles.productOldPrice}
-            >{`(£${product.oldPrice})`}</Text>
+            <Text style={styles.productOldPrice}>{`£${product.oldPrice}`}</Text>
           )}
         </View>
       </View>
       <View style={styles.buttonsContainer}>
         <TouchableOpacity
+          testID="wishListButton"
           onPress={() =>
             isItemInWishList(product.id)
               ? onRemoveFromWishListPressed(product)
@@ -55,11 +54,14 @@ const ProductItemView = ({
             }
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => onAddToCartPressed(product)}>
+        <TouchableOpacity
+          testID="addToCartButton"
+          onPress={() => onAddToCartPressed(product)}
+        >
           <Image
             style={[
               styles.cartButton,
-              { opacity: product.stock === 0 ? 0.34 : 1 }
+              { opacity: product.stock === 0 ? 0.34 : 1 },
             ]}
             source={cartIcon}
           />
@@ -75,7 +77,7 @@ ProductItemView.propTypes = {
   onAddToWishListPressed: PropTypes.func.isRequired,
   isItemInWishList: PropTypes.func.isRequired,
   onRemoveFromWishListPressed: PropTypes.func.isRequired,
-  onAddToCartPressed: PropTypes.func.isRequired
+  onAddToCartPressed: PropTypes.func.isRequired,
 };
 
 export default ProductItemView;
