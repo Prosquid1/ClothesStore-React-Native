@@ -14,6 +14,8 @@ import {
     View
 } from 'react-native';
 
+import ProductItemView from './ProductItem'
+
 const RNHome = () => {
 
     const [products, setProducts] = useState([])
@@ -25,6 +27,21 @@ const RNHome = () => {
         HomeBridge
     ]);
     
+    const [wishListIds, setWishListIds] = useState([])
+
+    const onAddToWishListPressed = useCallback((product) => HomeBridge.addToWishList(product), [
+        HomeBridge
+    ]);
+    
+    const onRemoveFromWishListPressed = useCallback((product) => HomeBridge.removeFromWishList(product), [
+        HomeBridge
+    ]);
+    
+    const onAddToCartPressed = useCallback((product) => HomeBridge.addToCart(product.id), [
+        HomeBridge
+    ]);
+
+    const isItemInWishList = useCallback((id) => wishListIds.indexOf(id) > -1, [wishListIds]);
 
     useEffect(() => {
         eventEmitter.addListener('onDataRetrieved', newProducts => {
@@ -48,11 +65,24 @@ const RNHome = () => {
         fetchData()
     }, []);
 
+    const renderProductItem = (product, index) => {
+        return(
+            <ProductItemView
+            product={product}
+            index={index}
+            onAddToWishListPressed={onAddToWishListPressed}
+            isItemInWishList={isItemInWishList}
+            onRemoveFromWishListPressed={onRemoveFromWishListPressed}
+            onAddToCartPressed={onAddToCartPressed}
+            />
+        )
+    }
+
     return (
         <View style={{ flex: 1 }}>
             <FlatList
                 data={products}
-                renderItem={({ item, index }) => renderProduct(item, index)}
+                renderItem={({ item, index }) => renderProductItem(item, index)}
                 refreshControl={
                     <RefreshControl
                         refreshing={refreshing}

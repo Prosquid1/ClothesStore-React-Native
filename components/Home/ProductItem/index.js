@@ -1,3 +1,5 @@
+import React from 'react';
+
 import {
     Text,
     Image,
@@ -6,29 +8,15 @@ import {
 } from 'react-native';
 
 import styles from './styles'
+import PropTypes from 'prop-types';
 
 const demoColors = ["#D65650", "#3530D1", "#50369D", "#D65650"]
-const [wishListIds, setWishListIds] = useState([])
 
-const starSelectedIcon = require('../../assets/star_selected_icon.png');
-const starDeselectedIcon = require('../../assets/star_deselected_icon.png');
-const cartIcon = require('../../ios/ClothesStore/App/Assets.xcassets/cart_icon.imageset/cart_icon.png');
+const starSelectedIcon = require('../../../assets/star_selected_icon.png');
+const starDeselectedIcon = require('../../../assets/star_deselected_icon.png');
+const cartIcon = require('../../../ios/ClothesStore/App/Assets.xcassets/cart_icon.imageset/cart_icon.png');
 
-const isItemInWishList = useCallback((id) => wishListIds.indexOf(id) > -1, [wishListIds]);
-
-const onAddToWishListPressed = useCallback((product) => HomeBridge.addToWishList(product), [
-    HomeBridge
-]);
-
-const onRemoveFromWishListPressed = useCallback((product) => HomeBridge.removeFromWishList(product), [
-    HomeBridge
-]);
-
-const onAddToCartPressed = useCallback((product) => HomeBridge.addToCart(product.id), [
-    HomeBridge
-]);
-
-const renderProduct = useCallback((product, index) => {
+const ProductItemView = ({product, index, onAddToWishListPressed,isItemInWishList, onRemoveFromWishListPressed, onAddToCartPressed }) => {
     return (
         <View style={styles.cellRow}>
             <View style={[styles.image, { backgroundColor: demoColors[index] }]}>
@@ -50,4 +38,15 @@ const renderProduct = useCallback((product, index) => {
                 </TouchableOpacity>
             </View>
         </View>)
-});
+};
+
+ProductItemView.propTypes = {
+    product: PropTypes.object.isRequired,
+    index: PropTypes.number.isRequired,
+    onAddToWishListPressed: PropTypes.func.isRequired,
+    isItemInWishList: PropTypes.func.isRequired,
+    onRemoveFromWishListPressed: PropTypes.func.isRequired,
+    onAddToCartPressed: PropTypes.func.isRequired
+  };
+
+  export default ProductItemView
