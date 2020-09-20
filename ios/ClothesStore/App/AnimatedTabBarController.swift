@@ -13,7 +13,7 @@ class AnimatedTabBarController: UITabBarController {
         super.viewDidLoad()
 
         let vc1 = HomeController()
-        vc1.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "house.fill"), tag: 0)
+        vc1.tabBarItem = UITabBarItem(title: "RN-Home", image: UIImage(systemName: "house.fill"), tag: 0)
 
         let vc2: UIViewController = WishListController()
         vc2.tabBarItem = UITabBarItem(title: "My Wishlist", image: UIImage(systemName: "star.fill"), tag: 1)

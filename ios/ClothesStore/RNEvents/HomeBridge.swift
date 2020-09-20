@@ -11,11 +11,11 @@ class HomeBridge: RCTEventEmitter {
 
     private var onCompleteCallback: RCTResponseSenderBlock?
 
-    private lazy var homeController: HomeController? = {
+    private lazy var homePresenter: HomePresenter? = {
            guard let homeController = UIApplication.shared.delegate?.window??.rootViewController?.topMostViewController() as? HomeController else {
                 return nil
            }
-           return homeController
+        return homeController.homePresenter
        }()
 
     override init() {
@@ -30,28 +30,28 @@ class HomeBridge: RCTEventEmitter {
     @objc(fetchData)
     public func fetchData(){
         DispatchQueue.main.async { [weak self] in
-            self?.homeController?.fetchData()
+            self?.homePresenter?.fetchData()
         }
     }
 
     @objc(addToCart:)
     public func addToCart(productId: Int){
         DispatchQueue.main.async { [weak self] in
-            self?.homeController?.addToCart(productId: productId)
+            self?.homePresenter?.addToCart(productId: productId)
         }
     }
 
     @objc(addToWishList:)
     public func addToWishList(productDict: [String: Any]){
         DispatchQueue.main.async { [weak self] in
-            self?.homeController?.addToWishList(productDict: productDict)
+            self?.homePresenter?.addToWishList(productDict: productDict)
         }
     }
 
     @objc(removeFromWishList:)
     public func removeFromWishList(productDict: [String: Any]){
         DispatchQueue.main.async { [weak self] in
-            self?.homeController?.removeFromWishList(productDict: productDict)
+            self?.homePresenter?.removeFromWishList(productDict: productDict)
         }
     }
 

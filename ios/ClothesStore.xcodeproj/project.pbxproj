@@ -84,6 +84,7 @@
 		EA99A346251564C7007DED45 /* RNHomeDummyData.json in Resources */ = {isa = PBXBuildFile; fileRef = EA99A345251564C7007DED45 /* RNHomeDummyData.json */; };
 		EA99A3762516CA9D007DED45 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = EA99A3752516CA9C007DED45 /* main.jsbundle */; };
 		EA99A37C2516CB5F007DED45 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = EA99A37B2516CB5F007DED45 /* assets */; };
+		EA9A3A12251804DF00E6569B /* HomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9A3A11251804DF00E6569B /* HomePresenter.swift */; };
 		EAA5279124C7FD0600DA907D /* DBTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA5279024C7FD0600DA907D /* DBTests.swift */; };
 		EAA5279524C8013400DA907D /* UIColorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA5279424C8013400DA907D /* UIColorTests.swift */; };
 		EAA5279724C803DA00DA907D /* StringTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA5279624C803DA00DA907D /* StringTest.swift */; };
@@ -166,8 +167,9 @@
 		EA99A33F251556EB007DED45 /* EventEmitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventEmitter.swift; sourceTree = "<group>"; };
 		EA99A340251556EB007DED45 /* HomeBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeBridge.swift; sourceTree = "<group>"; };
 		EA99A345251564C7007DED45 /* RNHomeDummyData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = RNHomeDummyData.json; sourceTree = "<group>"; };
-		EA99A3752516CA9C007DED45 /* main.jsbundle */ = {isa = PBXFileReference; lastKnownFileType = file; path = main.jsbundle; sourceTree = SOURCE_ROOT; };
+		EA99A3752516CA9C007DED45 /* main.jsbundle */ = {isa = PBXFileReference; lastKnownFileType = text; path = main.jsbundle; sourceTree = SOURCE_ROOT; };
 		EA99A37B2516CB5F007DED45 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = ../../assets; sourceTree = "<group>"; };
+		EA9A3A11251804DF00E6569B /* HomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
 		EAA5279024C7FD0600DA907D /* DBTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBTests.swift; sourceTree = "<group>"; };
 		EAA5279424C8013400DA907D /* UIColorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorTests.swift; sourceTree = "<group>"; };
 		EAA5279624C803DA00DA907D /* StringTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringTest.swift; sourceTree = "<group>"; };
@@ -252,6 +254,7 @@
 		EA332F8424BCA1F600ABA49A /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				EA99A37D25173D45007DED45 /* Presenter */,
 				EA332F8524BCA22400ABA49A /* HomeController.swift */,
 			);
 			path = Home;
@@ -357,6 +360,14 @@
 				EA99A33F251556EB007DED45 /* EventEmitter.swift */,
 			);
 			path = EventEmitter;
+			sourceTree = "<group>";
+		};
+		EA99A37D25173D45007DED45 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				EA9A3A11251804DF00E6569B /* HomePresenter.swift */,
+			);
+			path = Presenter;
 			sourceTree = "<group>";
 		};
 		EAA5279224C7FFFA00DA907D /* UI+Helpers */ = {
@@ -712,6 +723,7 @@
 				EA332F9E24BEE86200ABA49A /* CartItemCell.swift in Sources */,
 				EA68E1AE24C7579900B78B59 /* UIColor+Extensions.swift in Sources */,
 				EA3A49E224C4AD4A0049F8B1 /* DB+Extensions.swift in Sources */,
+				EA9A3A12251804DF00E6569B /* HomePresenter.swift in Sources */,
 				EAB56D5024B9A4F9006A8225 /* String+Extensions.swift in Sources */,
 				EA3A49F324C61C550049F8B1 /* WishListController.swift in Sources */,
 				EA3A49E424C4B0040049F8B1 /* WishlistPresenter.swift in Sources */,
