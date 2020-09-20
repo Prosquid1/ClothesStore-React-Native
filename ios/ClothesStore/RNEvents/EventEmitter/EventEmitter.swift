@@ -1,8 +1,7 @@
 class EventEmitter {
     /// Shared Instance.
     public static var sharedInstance = EventEmitter()
-
-    // SmileIdentity is instantiated by React Native with the bridge.
+    
     private static var eventEmitter: HomeBridge!
 
     private init() {}
