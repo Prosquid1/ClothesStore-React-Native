@@ -11,13 +11,13 @@ describe("ProductItem", () => {
       category: "Test Category",
       price: "5.00",
       oldPrice: "6.00",
-      stock: 0,
+      stock: 0
     },
     index: 2,
     onAddToWishListPressed: jest.fn(),
     isItemInWishList: jest.fn(),
     onRemoveFromWishListPressed: jest.fn(),
-    onAddToCartPressed: jest.fn(),
+    onAddToCartPressed: jest.fn()
   };
   afterEach(cleanup);
   it("renders sold out when stock is zero", () => {

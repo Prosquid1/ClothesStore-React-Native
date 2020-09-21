@@ -37,6 +37,7 @@ class HomeController: BaseViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        homePresenter.fetchData()
 
     }
 

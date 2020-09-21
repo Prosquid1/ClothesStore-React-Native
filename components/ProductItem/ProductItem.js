@@ -5,7 +5,7 @@ import { Text, Image, TouchableOpacity, View } from "react-native";
 import PropTypes from "prop-types";
 import styles from "./styles";
 
-const demoColors = ["#D65650", "#3530D1", "#50369D", "#D65650"];
+const demoColors = ["#4A3B97", "#3530D1", "#D65650", "#D65650"];
 
 const starSelectedIcon = require("../../assets/star_selected_icon.png");
 const starDeselectedIcon = require("../../assets/star_deselected_icon.png");
@@ -17,7 +17,7 @@ const ProductItemView = ({
   onAddToWishListPressed,
   isItemInWishList,
   onRemoveFromWishListPressed,
-  onAddToCartPressed,
+  onAddToCartPressed
 }) => {
   return (
     <View style={styles.cellRow}>
@@ -61,7 +61,7 @@ const ProductItemView = ({
           <Image
             style={[
               styles.cartButton,
-              { opacity: product.stock === 0 ? 0.34 : 1 },
+              { opacity: product.stock === 0 ? 0.34 : 1 }
             ]}
             source={cartIcon}
           />
@@ -77,7 +77,7 @@ ProductItemView.propTypes = {
   onAddToWishListPressed: PropTypes.func.isRequired,
   isItemInWishList: PropTypes.func.isRequired,
   onRemoveFromWishListPressed: PropTypes.func.isRequired,
-  onAddToCartPressed: PropTypes.func.isRequired,
+  onAddToCartPressed: PropTypes.func.isRequired
 };
 
 export default ProductItemView;
