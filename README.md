@@ -22,4 +22,6 @@ let jsCodeLocation = URL(string: "http://localhost:8081/index.bundle?platform=io
 ```
 
 #### Note:
-The backend was designed in a way that certain REST requests had to be chained, hence the full refresh in some controllers.
+1.[main.jsbundle](https://github.com/Prosquid1/ClothesStore-React-Native/blob/master/main.jsbundle) was deliberately added to avoid re-bundling and for those who want to directly run from Xcode without having to do any major setup.
+
+2.The backend was designed in a way that certain REST requests had to be chained, hence the full refresh in some controllers.
