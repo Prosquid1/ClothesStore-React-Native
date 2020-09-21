@@ -13,14 +13,14 @@ class DataSourcePresenter<T> where T: Codable {
 
     private var data = [T]()
 
-    let dataControllerDelegate: DataSourceDelegate
+    let dataControllerDelegate: DataSourceDelegate?
     let cartUpdateDelegate: CartUpdateDelegate
 
     var dataCount: Int {
         get { return data.count }
     }
 
-    required init(dataControllerDelegate: DataSourceDelegate,
+    required init(dataControllerDelegate: DataSourceDelegate?,
                   cartUpdateDelegate: CartUpdateDelegate ) {
         self.dataControllerDelegate = dataControllerDelegate
         self.cartUpdateDelegate = cartUpdateDelegate
@@ -80,20 +80,20 @@ extension DataSourcePresenter {
     }
 
     func retrieveData(path: String = "\(T.self)", params: [String: Any]? = nil) {
-        dataControllerDelegate.didStartFetchingData()
+        dataControllerDelegate?.didStartFetchingData()
 
         NetworkHelper<[T]>.makeRequest(path: path, onSuccess: {
             [weak self] data in
 
             guard !data.isEmpty else {
-                self?.dataControllerDelegate.dataIsEmpty()
+                self?.dataControllerDelegate?.dataIsEmpty()
                 return
             }
 
             self?.data = data
-            self?.dataControllerDelegate.dataRetrieved(data: data)
+            self?.dataControllerDelegate?.dataRetrieved(data: data)
         }){ [weak self] errorMessage in
-            self?.dataControllerDelegate.dataFetchingFailed(errorMessage: errorMessage)
+            self?.dataControllerDelegate?.dataFetchingFailed(errorMessage: errorMessage)
 
         }
     }

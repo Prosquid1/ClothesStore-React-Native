@@ -25,7 +25,7 @@ class CartPresenter: DataSourcePresenter<CartItem> {
         self.cartProductsDelegate = cartProductsDelegate
     }
     
-    required init(dataControllerDelegate: DataSourceDelegate,
+    required init(dataControllerDelegate: DataSourceDelegate?,
                   cartUpdateDelegate: CartUpdateDelegate) {
         super.init(dataControllerDelegate: dataControllerDelegate,
                    cartUpdateDelegate: cartUpdateDelegate)

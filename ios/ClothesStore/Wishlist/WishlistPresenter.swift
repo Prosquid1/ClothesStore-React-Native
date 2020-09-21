@@ -24,10 +24,10 @@ class WishlistPresenter: DataSourcePresenter<Product> {
     func getWishListItems() {
         wishList = wishlistManager.getWishList()
         if (wishList.isEmpty) {
-            dataControllerDelegate.dataIsEmpty()
+            dataControllerDelegate?.dataIsEmpty()
             return
         }
-        dataControllerDelegate.dataRetrieved(data: wishList)
+        dataControllerDelegate?.dataRetrieved(data: wishList)
     }
 }
 

@@ -53,7 +53,7 @@ buck-out/
 */fastlane/screenshots
 
 # Bundle artifacts
-*.jsbundle
+#*.jsbundle Note: main.jsbundle is required for this DEMO, it's meant to be ignored
 
 # CocoaPods
 /ios/Pods/
